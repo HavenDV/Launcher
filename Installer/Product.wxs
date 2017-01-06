@@ -1,30 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-	<Product Id="*" Name="Installer" Language="1033" Version="1.0.0.0" Manufacturer="HTeam" UpgradeCode="176aa441-b3ce-4960-a1d5-e738a5f91d91">
-		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+  <?include Variables.wxi?>
 
-		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
-		<MediaTemplate />
+  <Product Id="$(var.ProductCode)" Name="$(var.ProductName)" Language="1049" Version="$(var.ProductVersion)" Manufacturer="$(var.Manufacturer)" UpgradeCode="$(var.UpgradeCode)">
+    <Package InstallerVersion="200" Compressed="yes" />
+    <Property Id="SHORTCUT_PROGRAMMENU">1</Property>
+    <Property Id="SHORTCUT_DESKTOP">1</Property>
+    <Property Id="TENANT" Admin="yes" />
+    <Property Id="TOKEN" Admin="yes" />
+    <!--msiexec /i Test.msi TENANT="aabbcc" TOKEN="ddeeff"-->
+    
+    <Media Id="1" Cabinet="media1.cab" EmbedCab="yes" />
 
-		<Feature Id="ProductFeature" Title="Installer" Level="1">
-			<ComponentGroupRef Id="ProductComponents" />
-		</Feature>
-	</Product>
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder">
+        <Directory Id="INSTALLLOCATION" Name="$(var.ProductName)"/>
+      </Directory>
+      <Directory Id="ProgramMenuFolder">
+        <Directory Id="ApplicationProgramsFolder" Name="$(var.ProductName)"/>
+      </Directory>
+    </Directory>
 
-	<Fragment>
-		<Directory Id="TARGETDIR" Name="SourceDir">
-			<Directory Id="ProgramFilesFolder">
-				<Directory Id="INSTALLFOLDER" Name="Installer" />
-			</Directory>
-		</Directory>
-	</Fragment>
+    <FeatureRef Id="FeatureNotepad"/>
+    <Property Id="WIXUI_INSTALLDIR" Value="INSTALLLOCATION" ></Property>
+    <WixVariable Id="WixUILicenseRtf" Overridable="yes" Value="License.rtf"/>
+    <UIRef Id="WixUI_Wizard"/>
 
-	<Fragment>
-		<ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
-			<!-- TODO: Remove the comments around this Component element and the ComponentRef below in order to add resources to this installer. -->
-			<!-- <Component Id="ProductComponent"> -->
-				<!-- TODO: Insert files, registry keys, and other resources here. -->
-			<!-- </Component> -->
-		</ComponentGroup>
-	</Fragment>
+  </Product>
 </Wix>

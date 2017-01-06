@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Fragment>
+
+    <Feature Id="FeatureNotepad" Title="Notepad" Description="Description of Notepad" Level="1" ConfigurableDirectory="INSTALLLOCATION">
+      <ComponentRef Id="ComponentNotepad" />
+      <ComponentRef Id="ShortcutNotepad"/>
+
+      <Feature Id="FeatureCalc" Title="Calc" Description="Description of Calc" Level="1">
+        <ComponentRef Id="ComponentCalc" />
+        <ComponentRef Id="ShortcutCalc"/>
+      </Feature>
+    </Feature>
+
+  </Fragment>
+</Wix>
