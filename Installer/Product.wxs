@@ -4,13 +4,14 @@
   <?include Variables.wxi?>
 
   <Product Id="$(var.ProductCode)" Name="$(var.ProductName)" Language="1049" Version="$(var.ProductVersion)" Manufacturer="$(var.Manufacturer)" UpgradeCode="$(var.UpgradeCode)">
-    <Package InstallerVersion="200" Compressed="yes" />
+    <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
     <Property Id="SHORTCUT_PROGRAMMENU">1</Property>
     <Property Id="SHORTCUT_DESKTOP">1</Property>
     <Property Id="TENANT" Admin="yes" />
     <Property Id="TOKEN" Admin="yes" />
     <!--msiexec /i Test.msi TENANT="aabbcc" TOKEN="ddeeff"-->
     
+    <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
     <Media Id="1" Cabinet="media1.cab" EmbedCab="yes" />
 
     <Directory Id="TARGETDIR" Name="SourceDir">
